@@ -16,24 +16,29 @@ class _ResultPageState extends State<ResultPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                  style: TextStyle(
-                    fontSize: 35,
-                  ),
-                  'Wynik: '),
-            ),
-            Center(
-              child: Text(
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                  widget.result),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(17),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 35,
+                    ),
+                    'Wynik: '),
+              ),
+              Center(
+                child: Text(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                    widget.result),
+              ),
+            ],
+          ),
         ),
       ),
     );
