@@ -33,7 +33,7 @@ class _ResultPageState extends State<ResultPage> {
                 child: Text(
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: int.tryParse(widget.result) != null ? 105 : 25,
                     ),
                     widget.result),
               ),
