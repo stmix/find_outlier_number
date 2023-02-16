@@ -33,10 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   String findOutlierNumber(String list) {
-    int evc = 0;
-    int odc = 0;
-    String evcnum = '';
-    String odcnum = '';
+    int evenCounter = 0;
+    int oddCounter = 0;
+    String evenOutlierNumber = '';
+    String oddOutlierNumber = '';
     String res = '';
     List<String> splitList = list.split(',');
     if (splitList.length < 3) {
@@ -46,11 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
     for (int i = 0; i < splitList.length; i++) {
       if (int.tryParse(splitList[i]) != null) {
         if (int.parse(splitList[i]) % 2 == 0) {
-          evc++;
-          evcnum = splitList[i];
+          evenCounter++;
+          evenOutlierNumber = splitList[i];
         } else if (int.parse(splitList[i]) % 2 == 1) {
-          odc++;
-          odcnum = splitList[i];
+          oddCounter++;
+          oddOutlierNumber = splitList[i];
         }
       } else {
         res = parseError;
@@ -58,15 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
-    if (evc != 1 && odc == 1) {
-      res = odcnum;
-    } else if (evc == 1 && odc != 1) {
-      res = evcnum;
-    } else if (evc == 0) {
+    if (evenCounter != 1 && oddCounter == 1) {
+      res = oddOutlierNumber;
+    } else if (evenCounter == 1 && oddCounter != 1) {
+      res = evenOutlierNumber;
+    } else if (evenCounter == 0) {
       res = allOdd;
-    } else if (odc == 0) {
+    } else if (oddCounter == 0) {
       res = allEven;
-    } else if (evc > 1 && odc > 1) {
+    } else if (evenCounter > 1 && oddCounter > 1) {
       res = outlierNotFound;
     } else {
       res = unrecognizedError;
