@@ -1,0 +1,15 @@
+{
+    "materialAppTitle": "Odstająca liczba",
+    "homePageTitle": "Znajdź odstającą liczbę",
+    "buttonText": "Wyszukaj",
+
+    "inputHintText": "Podaj zestaw liczb oddzielonych przecinkami!",
+    "listTooShort": "Podana lista jest zbyt krótka (min. 3 liczby)!",
+    "allOdd": "Wszystkie podane liczby są nieparzyste!",
+    "allEven": "Wszystkie podane liczby są parzyste!",
+    "outlierNotFound": "Brak odstającej liczby",
+    "parseError": "Nieprawidłowy format danych!",
+    "unrecognizedError": "Wystąpił nieznany błąd!",
+    "chooseLanguage": "Język: ",
+    "resultHeader": "Wynik:"
+}

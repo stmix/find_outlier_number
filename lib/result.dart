@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class ResultPage extends StatefulWidget {
-  const ResultPage({super.key, required this.result});
+  const ResultPage(
+      {super.key, required this.result, required this.resultHeader});
   final String result;
+  final String resultHeader;
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -15,30 +15,28 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(17),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 35,
-                    ),
-                    'Wynik: '),
-              ),
-              Center(
-                child: Text(
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: int.tryParse(widget.result) != null ? 105 : 25,
-                    ),
-                    widget.result),
-              ),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(17),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 35,
+                  ),
+                  widget.resultHeader),
+            ),
+            Center(
+              child: Text(
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: int.tryParse(widget.result) != null ? 105 : 25,
+                  ),
+                  widget.result),
+            ),
+          ],
         ),
       ),
     );

@@ -1,27 +1,70 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:find_outlier_number/l10n/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:find_outlier_number/result.dart';
-import 'package:find_outlier_number/messages/messages.dart';
 
-void main() {
-  runApp(const MyApp());
+class L10n {
+  static final all = [
+    const Locale('en'),
+    const Locale('pl'),
+    const Locale('es'),
+  ];
 }
 
-class MyApp extends StatelessWidget {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    supportedLocales: L10n.all,
+    path: 'assets/l10n/',
+    fallbackLocale: const Locale('en'),
+    child: const MyApp(),
+  ));
+}
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Outlier',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: LocaleKeys.materialAppTitle.tr(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Find Outlier Number'),
+      home: MyHomePage(title: 'FindOutlierNumberApp'),
     );
   }
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       localizationsDelegates: context.localizationDelegates,
+//       supportedLocales: context.supportedLocales,
+//       locale: context.locale,
+//       title: LocaleKeys.materialAppTitle.tr(),
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: MyHomePage(title: LocaleKeys.homePageTitle.tr()),
+//     );
+//   }
+// }
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  // ignore: prefer_const_constructors_in_immutables
+  MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -40,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String res = '';
     List<String> splitList = list.split(',');
     if (splitList.length < 3) {
-      res = listTooShort;
+      res = LocaleKeys.listTooShort.tr();
       return res;
     }
     for (int i = 0; i < splitList.length; i++) {
@@ -53,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           oddOutlierNumber = splitList[i];
         }
       } else {
-        res = parseError;
+        res = LocaleKeys.parseError.tr();
         return res;
       }
     }
@@ -63,13 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (evenCounter == 1 && oddCounter != 1) {
       res = evenOutlierNumber;
     } else if (evenCounter == 0) {
-      res = allOdd;
+      res = LocaleKeys.allOdd.tr();
     } else if (oddCounter == 0) {
-      res = allEven;
+      res = LocaleKeys.allEven.tr();
     } else if (evenCounter > 1 && oddCounter > 1) {
-      res = outlierNotFound;
+      res = LocaleKeys.outlierNotFound.tr();
     } else {
-      res = unrecognizedError;
+      res = LocaleKeys.unrecognizedError.tr();
     }
     return res;
   }
@@ -86,11 +129,24 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    LocaleKeys.chooseLanguage.tr(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const DropdownButtonExample(),
+                ],
+              ),
+              const SizedBox(
+                height: 200,
+              ),
               TextField(
                 controller: _textEditingController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: inputHintText,
+                  border: const OutlineInputBorder(),
+                  hintText: LocaleKeys.inputHintText.tr(),
                 ),
               ),
               Padding(
@@ -107,14 +163,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ResultPage(
-                                          result: findOutlierNumber(
-                                              _textEditingController.text))));
+                                            result: findOutlierNumber(
+                                                _textEditingController.text),
+                                            resultHeader:
+                                                LocaleKeys.resultHeader.tr(),
+                                          )));
                             },
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                               child: Text(
-                                'Wyszukaj',
-                                style: TextStyle(
+                                LocaleKeys.buttonText.tr(),
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 25),
                               ),
                             ))),
@@ -125,6 +184,48 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+const List<String> languagesList = <String>['Polski', 'English', 'Español'];
+const List<String> codesList = <String>['pl', 'en', 'es'];
+
+class DropdownButtonExample extends StatefulWidget {
+  const DropdownButtonExample({super.key});
+
+  @override
+  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+}
+
+class _DropdownButtonExampleState extends State<DropdownButtonExample> {
+  String dropdownValue = languagesList.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: languagesList[
+          codesList.indexOf(Localizations.localeOf(context).toString())],
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.black, fontSize: 18),
+      underline: Container(
+        height: 2,
+        color: Colors.blue,
+      ),
+      onChanged: (String? value) {
+        // ignore: deprecated_member_use
+        context.locale = Locale(codesList[languagesList.indexOf(value!)]);
+        setState(() {
+          dropdownValue = value;
+        });
+      },
+      items: languagesList.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }

@@ -1,0 +1,15 @@
+{
+    "materialAppTitle": "Número atípico",
+    "homePageTitle": "Buscar número atípico",
+    "buttonText": "Buscar",
+
+    "inputHintText": "¡Ingrese un conjunto de números separados por comas!",
+    "listTooShort": "¡La lista dada es demasiado corta (al menos 3 números)!",
+    "allOdd": "¡Todos los números dados son impares!",
+    "allEven": "¡Todos los números dados son pares!",
+    "outlierNotFound": "¡Sin valores atípicos!",
+    "parseError": "¡Formato de datos no válido!",
+    "unrecognizedError": "¡Un error desconocido ocurrió!",
+    "chooseLanguage": "Lengua: ",
+    "resultHeader": "Resultado:"
+}

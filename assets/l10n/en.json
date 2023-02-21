@@ -1,0 +1,15 @@
+{
+    "materialAppTitle": "Outlier",
+    "homePageTitle": "Find Outlier Number",
+    "buttonText": "Search",
+
+    "inputHintText": "Enter a set of numbers separated by commas!",
+    "listTooShort": "The given list is too short (at least 3 numbers)!",
+    "allOdd": "All given numbers are odd!",
+    "allEven": "All given numbers are even!",
+    "outlierNotFound": "No outlier!",
+    "parseError": "Invalid data format!",
+    "unrecognizedError": "An unknown error occurred!",
+    "chooseLanguage": "Language: ",
+    "resultHeader": "Result:"
+}
